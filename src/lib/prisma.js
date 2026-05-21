@@ -1,10 +1,16 @@
+import {PrismaPg} from "@prisma/adapter-pg";
 import {PrismaClient} from "@prisma/client";
 
-// بنستخدم كائن globalThis للحفاظ على نفس الاتصال في بيئة التطوير (Development)
-const db = globalThis.prisma || new PrismaClient();
+const globalForPrisma = globalThis;
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
 
-if (process.env.NODE_ENV !== "production") {
-  globalThis.prisma = db;
-}
+const db =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    adapter,
+  });
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
-export {db};
+export default db;

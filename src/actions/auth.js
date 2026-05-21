@@ -1,12 +1,20 @@
 "use server";
 
-import {db} from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+import db from "@/lib/prisma";
+import verificationEmail from "@/components/ui/verification-email";
+import {resend} from "@/lib/resend";
 
 export async function signupServerAction(userData) {
-  const {name, email, password, phoneNumber, country} = userData;
+  const {name, email, password, phoneNumber, country, confirmPassword} =
+    userData;
 
-  if (!name || !email || !password) {
-    return {error: "Please fill out all fields"};
+  if (!name || !email || !password || !phoneNumber) {
+    return {error: "Please fill out all required fields"};
+  }
+
+  if (confirmPassword && confirmPassword !== password) {
+    return {error: "Passwords do not match"};
   }
 
   try {
@@ -18,38 +26,55 @@ export async function signupServerAction(userData) {
       return {error: "This email is already registered!"};
     }
 
-    // 2. إنشاء المستخدم (emailVerified بيكون null)
-    // ملحوظة: يفضل تشفير الباسورد بـ bcryptjs قبل الحفظ لحماية البيانات
-    await db.user.create({
-      data: {
-        name,
-        email,
-        password,
-        phoneNumber,
-        country,
-        companyName,
-      },
-    });
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 3. توليد رمز OTP عشوائي (6 أرقام)
+    // 🌟 توليد بيانات الـ OTP مسبقاً قبل دخول الـ Transaction
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     const expires = new Date(Date.now() + 10 * 60 * 1000); // صلاحية 10 دقائق
 
-    // 4. حفظ الرمز في جدول VerificationToken
-    await db.verificationToken.create({
-      data: {
-        email,
-        code: otpCode,
-        expires,
-      },
+    // 🚀 بدء الـ Transaction لحماية قاعدة البيانات
+    // الـ tx اللي جوه الدالة هي اللي بتنوب عن db لتنفيذ العمليات معاً
+    await db.$transaction(async (tx) => {
+      // 1. إنشاء المستخدم
+      await tx.user.create({
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+          phone_number: phoneNumber,
+          country,
+        },
+      });
+
+      // 2. إنشاء رمز التحقق في نفس اللحظة
+      await tx.verificationToken.create({
+        data: {
+          email,
+          code: otpCode,
+          expires,
+        },
+      });
     });
 
-    // 5. هنا بيتم إرسال الإيميل (مثلاً بـ Resend)
-    console.log(`[Resend OTP] Code for ${email} is: ${otpCode}`);
+    // 📬 خطوة إرسال الإيميل (لا تحدث إلا إذا نجحت الـ Transaction بالكامل وتم الحفظ بنجاح)
+    const {error: resendError} = await resend.emails.send({
+      from: "Gaber <onboarding@resend.dev>",
+      to: email,
+      subject: "Verify your email",
+      html: verificationEmail({name, otpCode}),
+    });
+
+    if (resendError) {
+      console.error("Resend Sending Error:", resendError);
+      return {
+        error:
+          "Account created, but we couldn't send the verification email. Please request a new code.",
+      };
+    }
 
     return {success: true};
   } catch (error) {
-    console.error("Prisma Register Error:", error);
+    console.error("Prisma Register Transaction Error:", error);
     return {error: "An error occurred during registration. Please try again."};
   }
 }

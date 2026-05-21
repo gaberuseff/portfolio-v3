@@ -1,6 +1,6 @@
+import Providers from "@/Providers";
 import {Geist, Inter} from "next/font/google";
 import "./globals.css";
-import {Toaster} from "react-hot-toast";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -25,9 +25,7 @@ export default function RootLayout({children}) {
       lang="en"
       className={`${geist.variable} ${inter.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col">
-        <div>{children}</div>
-
-        <Toaster position="bottom-right" />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
