@@ -14,12 +14,11 @@ datasource db {
 
 model User {
   id             String    @id @default(cuid())
-  name           String?
+  name           String
   email          String    @unique
   password       String // الباسورد المشفر (مهم طالما مفيش سوشيال ميديا)
-  phone_number   String?
+  phone_number   String
   country        String?
-  company_name   String?
   email_verified DateTime? // لتأكيد تفعيل الحساب بعد كتابة الـ OTP
 
   created_at DateTime @default(now())
