@@ -8,7 +8,6 @@ export async function verifyOtpAction({email, code}) {
   }
 
   try {
-    // 1. البحث عن الرمز في جدول VerificationToken للتأكد من صحته
     const existingToken = await db.verificationToken.findFirst({
       where: {
         email: email,
@@ -23,23 +22,31 @@ export async function verifyOtpAction({email, code}) {
     // 2. التأكد من أن الرمز لم تنتهِ صلاحيته بعد
     const hasExpired = new Date(existingToken.expires) < new Date();
     if (hasExpired) {
-      // ميزة إضافية: يفضل مسح الرمز المنتهي لتنظيف الداتا بيز
-      await db.verificationToken.delete({where: {id: existingToken.id}});
+      await db.verificationToken.deleteMany({where: {id: existingToken.id}});
       return {error: "OTP code has expired, please request a new one."};
     }
 
-    // 3. تحديث حالة المستخدم في جدول User وتثبيت وقت التفعيل
-    await db.user.update({
-      where: {email: email},
-      data: {
-        email_verified: new Date(),
-      },
+    const result = await db.$transaction(async (tx) => {
+      const updatedRows = await tx.$executeRaw`
+        UPDATE "User"
+        SET "email_verified" = ${new Date()}, "status" = ${"ACTIVE"}
+        WHERE "email" = ${email}
+      `;
+
+      if (updatedRows === 0) {
+        return {error: "Account was not found. Please sign up again."};
+      }
+
+      await tx.verificationToken.deleteMany({
+        where: {id: existingToken.id},
+      });
+
+      return {success: true};
     });
 
-    // 4. مسح الرمز من قاعدة البيانات لأنه تم استخدامه بنجاح بنظام (One-Time Password)
-    await db.verificationToken.delete({
-      where: {id: existingToken.id},
-    });
+    if (result?.error) {
+      return result;
+    }
 
     return {success: true};
   } catch (error) {
