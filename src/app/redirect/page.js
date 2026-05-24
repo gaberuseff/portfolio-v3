@@ -15,7 +15,7 @@ export default async function page() {
   console.log("User status in redirect page:", active);
 
   if (role === "USER") {
-    redirect("/client");
+    redirect("/projects");
   }
 
   redirect("/admin");

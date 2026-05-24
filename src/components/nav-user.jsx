@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import LogoutBtn from "@/features/auth/LogoutBtn";
 import {
   EllipsisVerticalIcon,
   CircleUserRoundIcon,
@@ -26,6 +27,7 @@ import {
 
 export function NavUser({user}) {
   const {isMobile} = useSidebar();
+  if (!user) return null;
 
   return (
     <SidebarMenu>
@@ -83,10 +85,7 @@ export function NavUser({user}) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOutIcon />
-              Log out
-            </DropdownMenuItem>
+            <LogoutBtn/>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

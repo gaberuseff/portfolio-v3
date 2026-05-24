@@ -1,6 +1,6 @@
-"use client";
-
 import {NavMain} from "@/components/nav-main";
+import {NavUser} from "@/components/nav-user";
+import {NavSecondary} from "@/components/NavSecondary";
 import {
   Sidebar,
   SidebarContent,
@@ -10,7 +10,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {CommandIcon, LayoutDashboardIcon, ListIcon} from "lucide-react";
+import {auth} from "@/lib/auth";
+import {
+  BadgeInfo,
+  CommandIcon,
+  LayoutDashboardIcon,
+  ListIcon,
+  Settings,
+} from "lucide-react";
 
 const data = {
   navMain: [
@@ -24,10 +31,30 @@ const data = {
       url: "/billings",
       icon: <ListIcon />,
     },
+    {
+      title: "login",
+      url: "/login",
+      icon: <ListIcon />,
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: <Settings />,
+    },
+    {
+      title: "Get Help",
+      url: "/help",
+      icon: <BadgeInfo />,
+    },
   ],
 };
 
-export function ClientSidebar({...props}) {
+export async function ClientSidebar({...props}) {
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -46,8 +73,11 @@ export function ClientSidebar({...props}) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
+      <SidebarFooter>
+        <NavUser user={user} />
+      </SidebarFooter>
     </Sidebar>
   );
 }
