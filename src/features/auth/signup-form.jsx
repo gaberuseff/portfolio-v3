@@ -51,7 +51,7 @@ export function SignupForm({className, ...props}) {
   });
 
   function onSubmit(values) {
-    const {...payload} = values;
+    const {confirmPassword, ...payload} = values;
     signup(payload);
   }
 

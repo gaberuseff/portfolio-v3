@@ -1,3 +1,5 @@
+"use client";
+
 import {Button} from "@/components/ui/button";
 import {
   Card,
@@ -14,8 +16,26 @@ import {
 } from "@/components/ui/field";
 import {Input} from "@/components/ui/input";
 import {cn} from "@/lib/utils";
+import {useForm} from "react-hook-form";
+import useLogin from "./useLogin";
+import {Spinner} from "@/components/ui/spinner";
+import Link from "next/link";
 
 export function LoginForm({className, ...props}) {
+  const {login, isLoggingIn} = useLogin();
+
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {email: "dev.gaber@gmail.com", password: "12345678"},
+  });
+
+  function onSubmit(values) {
+    login(values);
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -26,7 +46,7 @@ export function LoginForm({className, ...props}) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -34,27 +54,37 @@ export function LoginForm({className, ...props}) {
                   id="email"
                   type="email"
                   placeholder="m@example.com"
-                  required
+                  aria-invalid={!!errors.email}
+                  {...register("email", {required: "Email is required"})}
                 />
               </Field>
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <a
-                    href="#"
+                    href="/forgot-password"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  aria-invalid={!!errors.password}
+                  {...register("password", {required: "Password is required"})}
+                />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit" disabled={isLoggingIn}>
+                  Login
+                  {isLoggingIn && <Spinner className="ml-2" />}
+                </Button>
                 <Button variant="outline" type="button">
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don&apos;t have an account?{" "}
+                  <Link href="/signup">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

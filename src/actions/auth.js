@@ -6,6 +6,8 @@ import verificationEmail from "@/components/ui/verification-email";
 import {resend} from "@/lib/resend";
 import crypto from "crypto";
 import {signupSchema} from "@/lib/schema";
+import {signIn, signOut} from "@/lib/auth";
+import {AuthError} from "next-auth";
 
 export async function signupServerAction(userData) {
   const validation = signupSchema.safeParse(userData);
@@ -119,5 +121,36 @@ async function sendVerificationEmail(name, email, otpCode) {
   } catch (err) {
     console.error("Resend API error:", err);
     return {error: "Failed to send verification email. Check server logs."};
+  }
+}
+
+export async function loginServerAction(credentials) {
+  try {
+    await signIn("credentials", {
+      email: credentials.email,
+      password: credentials.password,
+      redirect: false,
+    });
+
+    return {success: true};
+  } catch (error) {
+    if (error instanceof AuthError) {
+      if (error.cause?.err?.message === "ACCOUNT_NOT_VERIFIED") {
+        return {error: "ACCOUNT_NOT_VERIFIED"};
+      }
+      return {error: error.cause?.err?.message || "Authentication failed."};
+    }
+
+    return {error: "An unexpected error occurred. Please try again."};
+  }
+}
+
+export async function logoutServerAction() {
+  try {
+    await signOut({redirect: false});
+    return {success: true};
+  } catch (error) {
+    console.error("Logout Error:", error);
+    return {error: "Failed to sign out. Please try again."};
   }
 }
