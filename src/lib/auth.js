@@ -2,11 +2,15 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import db from "@/lib/prisma";
+import {authConfig} from "./auth.config";
 
 export const {handlers, auth, signIn, signOut} = NextAuth({
+  ...authConfig,
+  
   providers: [
     Credentials({
       name: "Credentials",
+      
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing credentials");
@@ -50,32 +54,4 @@ export const {handlers, auth, signIn, signOut} = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    // 🌟 خطوة الإنقاذ الأولى في الـ JWT
-    async jwt({token, user}) {
-      // في أول تسجيل دخول، الكائن المرتجع من authorize يكون هو الـ user هنا
-      if (user) {
-        token.id = user.id;
-        token.role = user.role; // ننقلها يدويًا للتوكن
-        token.status = user.status; // ننقلها يدويًا للتوكن
-        token.phone_number = user.phone_number;
-        token.country = user.country;
-      }
-      return token;
-    },
-
-    // 🌟 خطوة الإنقاذ الثانية في الـ Session
-    async session({session, token}) {
-      if (token && session.user) {
-        session.user.id = token.id;
-        session.user.role = token.role; // ننقلها يدويًا للجلسة العلنية
-        session.user.status = token.status; // ننقلها يدويًا للجلسة العلنية
-        session.user.phone_number = token.phone_number;
-        session.user.country = token.country;
-      }
-      return session;
-    },
-  },
-  session: {strategy: "jwt"},
-  pages: {signIn: "/login"},
 });
