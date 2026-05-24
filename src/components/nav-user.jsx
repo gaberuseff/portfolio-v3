@@ -16,7 +16,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import LogoutBtn from "@/features/auth/LogoutBtn";
 import {
   EllipsisVerticalIcon,
   CircleUserRoundIcon,
@@ -24,9 +23,13 @@ import {
   BellIcon,
   LogOutIcon,
 } from "lucide-react";
+import useLogout from "@/features/auth/useLogout";
+import {Spinner} from "@/components/ui/spinner";
 
 export function NavUser({user}) {
   const {isMobile} = useSidebar();
+  const {logout, isLoggingOut} = useLogout();
+
   if (!user) return null;
 
   return (
@@ -85,7 +88,11 @@ export function NavUser({user}) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <LogoutBtn/>
+            <DropdownMenuItem onClick={logout} disabled={isLoggingOut}>
+              <LogOutIcon />
+              Log out
+              {isLoggingOut && <Spinner className="ml-2" />}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

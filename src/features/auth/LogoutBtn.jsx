@@ -1,21 +1,17 @@
 "use client";
 
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { Spinner } from "@/components/ui/spinner";
-import { LogOutIcon } from "lucide-react";
+import {Button} from "@/components/ui/button";
 import useLogout from "./useLogout";
+import {Spinner} from "@/components/ui/spinner";
 
 function LogoutBtn() {
   const {logout, isLoggingOut} = useLogout();
 
   return (
-    <div>
-      <DropdownMenuItem onClick={logout}>
-              <LogOutIcon />
-              Log out
-              {isLoggingOut && <Spinner className="ml-2" />}
-            </DropdownMenuItem>
-    </div>
+    <Button onClick={logout} disabled={isLoggingOut}>
+      Logout
+      {isLoggingOut && <Spinner className="ml-2" />}
+    </Button>
   );
 }
 
