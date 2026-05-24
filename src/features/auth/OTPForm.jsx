@@ -107,7 +107,7 @@ function OTPForm() {
             Having trouble signing in?{" "}
             <a
               href="https://wa.me/201500223440"
-              target="_black"
+              target="_blank"
               className="underline underline-offset-4 transition-colors hover:text-primary">
               Contact support
             </a>
@@ -115,7 +115,7 @@ function OTPForm() {
         </Field>
       </CardFooter>
     </Card>
-  );s
+  );
 }
 
 export default OTPForm;

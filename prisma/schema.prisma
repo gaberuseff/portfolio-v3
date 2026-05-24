@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,6 +13,8 @@ model User {
   password       String // الباسورد المشفر (مهم طالما مفيش سوشيال ميديا)
   phone_number   String
   country        String?
+  role           String    @default("USER") // ممكن نضيف أدوار زي "ADMIN" أو "MODERATOR" لو حبيت
+  status         String    @default("PENDING") // "PENDING" للي ما فعّلوا حسابهم، "ACTIVE" للي فعّلوا
   email_verified DateTime? // لتأكيد تفعيل الحساب بعد كتابة الـ OTP
 
   created_at DateTime @default(now())
@@ -25,7 +22,7 @@ model User {
 
 model VerificationToken {
   id      String   @id @default(cuid())
-  email   String
+  email   String   @unique
   code    String // رمز الـ OTP (مثلاً 6 أرقام)
   expires DateTime // وقت انتهاء صلاحية الرمز
 

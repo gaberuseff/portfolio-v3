@@ -1,6 +1,6 @@
 "use client";
 
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 
 import {Button} from "@/components/ui/button";
 import {
@@ -36,6 +36,7 @@ export function SignupForm({className, ...props}) {
   const {
     register,
     handleSubmit,
+    control,
     formState: {errors},
   } = useForm({
     mode: "onTouched",
@@ -127,28 +128,39 @@ export function SignupForm({className, ...props}) {
 
                 <Field>
                   <FieldLabel htmlFor="country">Country</FieldLabel>
-                  <Combobox
-                    items={arab_countries.filter(
-                      (country) => country.code !== "",
-                    )}
-                    itemToStringValue={(country) => country.name}>
-                    <ComboboxInput
-                      id="country"
-                      name="country"
-                      placeholder="Search countries..."
-                      aria-invalid={!!errors.country}
-                    />
-                    <ComboboxContent>
-                      <ComboboxEmpty>No countries found.</ComboboxEmpty>
-                      <ComboboxList>
-                        {(country) => (
-                          <ComboboxItem key={country.code} value={country.name}>
-                            {country.name}
-                          </ComboboxItem>
+                  <Controller
+                    name="country"
+                    control={control}
+                    render={({field}) => (
+                      <Combobox
+                        items={arab_countries.filter(
+                          (country) => country.code !== "",
                         )}
-                      </ComboboxList>
-                    </ComboboxContent>
-                  </Combobox>
+                        itemToStringValue={(country) => country.name}
+                        value={field.value}
+                        onValueChange={(val) => field.onChange(val)}>
+                        <ComboboxInput
+                          id="country"
+                          placeholder="Search countries..."
+                          aria-invalid={!!errors.country}
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                        />
+                        <ComboboxContent>
+                          <ComboboxEmpty>No countries found.</ComboboxEmpty>
+                          <ComboboxList>
+                            {(country) => (
+                              <ComboboxItem
+                                key={country.code}
+                                value={country.name}>
+                                {country.name}
+                              </ComboboxItem>
+                            )}
+                          </ComboboxList>
+                        </ComboboxContent>
+                      </Combobox>
+                    )}
+                  />
                   <FieldError>{errors.country?.message}</FieldError>
                 </Field>
               </Field>
