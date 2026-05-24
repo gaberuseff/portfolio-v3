@@ -25,7 +25,7 @@ function ProjectItem({project}) {
 
       <div className="w-full mt-4">
         <Button variant="outline" className="w-full" asChild>
-          <Link href={project.id} rel="noopener noreferrer">
+          <Link href={`/projects/${project.id}`} rel="noopener noreferrer">
             View Details
           </Link>
         </Button>

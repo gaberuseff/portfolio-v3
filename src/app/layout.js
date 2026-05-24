@@ -23,7 +23,7 @@ export default function RootLayout({children}) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${inter.variable} h-full antialiased`}>
+      className={`${geist.variable} ${inter.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
       </body>
