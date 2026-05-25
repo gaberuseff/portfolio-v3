@@ -17,6 +17,9 @@ model User {
   status         String    @default("PENDING") // "PENDING" للي ما فعّلوا حسابهم، "ACTIVE" للي فعّلوا
   email_verified DateTime? // لتأكيد تفعيل الحساب بعد كتابة الـ OTP
 
+  projects       Project[]     // علاقة المشروع بالعميل (علاقة One-to-Many)
+
+
   created_at DateTime @default(now())
 }
 
@@ -27,4 +30,52 @@ model VerificationToken {
   expires DateTime // وقت انتهاء صلاحية الرمز
 
   @@unique([email, code])
+}
+
+model Project {
+  id                 String    @id @default(cuid())
+  title              String
+  description        String?   @db.Text
+  progress           Int       @default(0)      // نسبة التقدم (65 مثلاً)
+  milestoneLevel     Int       @default(1)      // مستوى المشروع الحالي (من 1 إلى 4)
+  statusLabel        String    @default("In Active Development")
+  
+  // التواريخ (مخزنة كـ DateTime في الـ Database لسهولة الفرز)
+  startDate          DateTime  @default(now())
+  deadline           DateTime
+  endDate            DateTime? // يكون null لو المشروع لسه مخلصش
+
+  liveUrl            String?
+  figmaUrl           String?
+  currentMilestone   String?   @db.Text
+  lastUpdated        String    @default("Just now") // ممكن تخليها String برضه للتبسيط
+
+  // الماليات مباشرة جوه المشروع
+  totalAmount        Float     // 5000
+  paidAmount         Float     // 2500
+  currency           String    @default("EGP")  // EGP, USD, etc.
+
+  // ربط المشروع بالعميل
+  userId             String
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoices           Invoice[]
+
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  title       String   // اسم الدفعة (e.g., UI/UX Design Deposit)
+  amount      Float    // قيمة الفاتورة (e.g., 1500)
+  currency    String   @default("EGP") // العملة
+  status      String   @default("UNPAID") // حالات الفاتورة: PAID أو UNPAID أو OVERDUE
+  dueDate     DateTime // تاريخ استحقاق الدفعة
+
+  // ربط الفاتورة بمشروع محدد (Many-to-One)
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

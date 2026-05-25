@@ -5,6 +5,7 @@ export const MOCK_PROJECTS = [
     description:
       "A comprehensive cloud-based system for managing medical appointments, organizing digital patient records, and generating financial analytics for clinics and hospitals.",
     progress: 65,
+    milestoneLevel: 2,
     statusLabel: "In Active Development",
     startDate: "2026-04-01", // تاريخ بداية المشروع
     deadline: "2026-06-15", // الموعد النهائي المتوقع تسليمه فيه
@@ -26,6 +27,7 @@ export const MOCK_PROJECTS = [
     description:
       "A premium e-commerce mobile-responsive web app tailored for luxury watch trading. Features advanced inventory tracking, secure checkout flows, and shipment tracking.",
     progress: 90,
+    milestoneLevel: 3,
     statusLabel: "Testing & QA Review",
     startDate: "2026-03-10",
     deadline: "2026-05-30",
@@ -47,6 +49,7 @@ export const MOCK_PROJECTS = [
     description:
       "Development of a highly optimized personal portfolio to showcase developer works, paired with an integrated custom CRM/Client Portal for live project tracking.",
     progress: 100,
+    milestoneLevel: 5,
     statusLabel: "Completed & Deployed",
     startDate: "2026-01-15",
     deadline: "2026-03-01",
@@ -68,6 +71,7 @@ export const MOCK_PROJECTS = [
     description:
       "An automated e-commerce storefront integrated with third-party dropshipping APIs for real-time inventory sync, single-click order fulfillment, and automated tracking updates.",
     progress: 15,
+    milestoneLevel: 1,
     statusLabel: "Planning & Requirements Gathering",
     startDate: "2026-05-20", // لسه بادئ من أيام
     deadline: "2026-07-01",

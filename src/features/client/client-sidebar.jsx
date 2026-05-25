@@ -1,6 +1,6 @@
-import {NavMain} from "@/components/nav-main";
-import {NavUser} from "@/components/nav-user";
-import {NavSecondary} from "@/components/NavSecondary";
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
+import { NavSecondary } from "@/components/NavSecondary";
 import {
   Sidebar,
   SidebarContent,
@@ -10,13 +10,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {auth} from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import {
-  BadgeInfo,
   CommandIcon,
-  LayoutDashboardIcon,
+  FolderClosed,
   ListIcon,
-  Settings,
+  MessageCircleHeart,
+  Receipt,
+  Settings
 } from "lucide-react";
 
 const data = {
@@ -24,12 +25,12 @@ const data = {
     {
       title: "Projects",
       url: "/projects",
-      icon: <LayoutDashboardIcon />,
+      icon: <FolderClosed />,
     },
     {
       title: "Billings",
       url: "/billings",
-      icon: <ListIcon />,
+      icon: <Receipt />,
     },
     {
       title: "login",
@@ -44,9 +45,9 @@ const data = {
       icon: <Settings />,
     },
     {
-      title: "Get Help",
-      url: "/help",
-      icon: <BadgeInfo />,
+      title: "Get Contact",
+      url: "/contact",
+      icon: <MessageCircleHeart />,
     },
   ],
 };

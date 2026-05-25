@@ -20,8 +20,8 @@ function useLogout() {
     onSuccess: () => {
       queryClient.clear();
       router.push("/login");
-      toast.success("Logged out successfully.");
       router.refresh();
+      toast.success("Logged out successfully.");
     },
     onError: (error) => {
       toast.error(error.message || "Logout failed. Please try again.");

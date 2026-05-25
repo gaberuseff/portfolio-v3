@@ -7,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 export function NavSecondary({items, ...props}) {
   return (
@@ -16,7 +17,7 @@ export function NavSecondary({items, ...props}) {
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <a href={item.url}>
+                <Link href={item.url}>
                   {item.icon ? (
                     typeof item.icon === "function" ? (
                       <item.icon />
@@ -25,7 +26,7 @@ export function NavSecondary({items, ...props}) {
                     )
                   ) : null}
                   <span>{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

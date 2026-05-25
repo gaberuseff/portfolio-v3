@@ -1,6 +1,7 @@
 "use client";
 
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ThemeProvider} from "next-themes";
 import {Toaster} from "react-hot-toast";
 import {useState} from "react";
 
@@ -9,15 +10,18 @@ export default function Providers({children}) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          className: "bg-white text-black dark:bg-gray-800 dark:text-white",
-          duration: 5000,
-          removeDelay: 1000,
-        }}
-      />
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            className: "bg-white text-black dark:bg-gray-800 dark:text-white",
+            duration: 5000,
+            removeDelay: 1000,
+          }}
+        />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
+

@@ -25,3 +25,12 @@ export const formatCurrency = (amount, currency) => {
     return `${formattedAmount} ${currency}`;
   }
 };
+export const formatDate = (date) => {
+    if (!date) return null;
+    try {
+      const d = new Date(date);
+      return d.toISOString().split("T")[0];
+    } catch (err) {
+      return null;
+    }
+  };
