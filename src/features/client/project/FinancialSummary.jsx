@@ -1,7 +1,10 @@
+"use client";
+
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { formatCurrency } from "@/lib/helpers";
-import { Wallet } from "lucide-react";
+import { Wallet, Printer } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function FinancialSummary({ project }) {
   const totalVal = Number(project.total_amount) || 0;
@@ -54,6 +57,20 @@ export default function FinancialSummary({ project }) {
             className="h-1.5 bg-muted/60" 
             indicatorClassName="bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.25)]"
           />
+        </div>
+
+        {/* Action Buttons */}
+        <div className="pt-2 border-t border-border/30">
+          <Button 
+            variant="outline" 
+            className="w-full gap-2 cursor-pointer text-xs" 
+            asChild
+          >
+            <a href={`/invoice/${project.id}`} target="_blank" rel="noopener noreferrer">
+              <Printer className="size-4" />
+              <span>Print Invoice</span>
+            </a>
+          </Button>
         </div>
 
       </CardContent>
