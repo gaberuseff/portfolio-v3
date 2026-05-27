@@ -21,6 +21,7 @@ import {
   SiSupabase,
   SiReactquery
 } from "react-icons/si";
+import SectionWrapper from "@/components/ui/SectionWrapper";
 
 function TechStack() {
   const categories = [
@@ -115,67 +116,65 @@ function TechStack() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-background py-12 sm:py-16 border-t border-zinc-100 dark:border-zinc-900/40 font-inter antialiased">
-      <div className="mx-auto w-[90%] max-w-6xl px-4">
+    <SectionWrapper hasBorder={true} py="default">
+      
+      <div className="space-y-3 mb-10">
+        <div className="text-[10px] font-mono tracking-widest text-muted-foreground/60 uppercase">
+          Technology   ·   The Core Engine
+        </div>
         
-        <div className="space-y-3 mb-10">
-          <div className="text-[10px] font-mono tracking-widest text-muted-foreground/60 uppercase">
-            Technology   ·   The Core Engine
-          </div>
-          
-          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground font-geist leading-tight">
-            Expertise & Toolchain
-          </h2>
-          
-          <p className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed max-w-xl font-light">
-            A curated selection of languages, frameworks, and infrastructure tools I leverage to engineer responsive, accessible, and highly optimized digital solutions.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0">
-          {categories.map((cat, catIdx) => (
-            <div 
-              key={cat.title} 
-              className={`space-y-4 ${
-                catIdx > 0 
-                  ? "lg:border-l border-zinc-200/40 dark:border-zinc-800/40 lg:pl-6" 
-                  : ""
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-1.5">
-                {cat.icon}
-                <h3 className="text-[11px] font-semibold tracking-widest uppercase text-foreground">
-                  {cat.title}
-                </h3>
-              </div>
-
-              <div className="space-y-2.5">
-                {cat.items.map((item) => (
-                  <div 
-                    key={item.name} 
-                    className={`flex gap-3 items-start p-2.5 bg-zinc-50/10 dark:bg-zinc-900/5 hover:bg-zinc-50/40 dark:hover:bg-zinc-900/15 border border-zinc-200/10 dark:border-zinc-800/25 hover:border-zinc-200/20 dark:hover:border-zinc-800/50 rounded-lg transition-all duration-300 group ${item.shadowClass}`}
-                  >
-                    <div className={`size-7 rounded bg-zinc-50/60 dark:bg-zinc-900/25 border border-zinc-200/30 dark:border-zinc-800/40 flex items-center justify-center text-muted-foreground/75 transition-all duration-300 shrink-0 text-xs ${item.hoverClass}`}>
-                      {item.icon}
-                    </div>
-
-                    <div className="space-y-0.5">
-                      <h4 className="text-xs font-semibold text-foreground/90 group-hover:text-primary transition-colors duration-300">
-                        {item.name}
-                      </h4>
-                      <p className="text-[10px] text-muted-foreground/80 font-light leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground font-geist leading-tight">
+          Expertise & Toolchain
+        </h2>
+        
+        <p className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed max-w-xl font-light">
+          A curated selection of languages, frameworks, and infrastructure tools I leverage to engineer responsive, accessible, and highly optimized digital solutions.
+        </p>
       </div>
-    </section>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0">
+        {categories.map((cat, catIdx) => (
+          <div 
+            key={cat.title} 
+            className={`space-y-4 ${
+              catIdx > 0 
+                ? "lg:border-l border-zinc-200/40 dark:border-zinc-800/40 lg:pl-6" 
+                : ""
+            }`}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              {cat.icon}
+              <h3 className="text-[11px] font-semibold tracking-widest uppercase text-foreground">
+                {cat.title}
+              </h3>
+            </div>
+
+            <div className="space-y-2.5">
+              {cat.items.map((item) => (
+                <div 
+                  key={item.name} 
+                  className={`flex gap-3 items-start p-2.5 bg-zinc-50/10 dark:bg-zinc-900/5 hover:bg-zinc-50/40 dark:hover:bg-zinc-900/15 border border-zinc-200/10 dark:border-zinc-800/25 hover:border-zinc-200/20 dark:hover:border-zinc-800/50 rounded-lg transition-all duration-300 group ${item.shadowClass}`}
+                >
+                  <div className={`size-7 rounded bg-zinc-50/60 dark:bg-zinc-900/25 border border-zinc-200/30 dark:border-zinc-800/40 flex items-center justify-center text-muted-foreground/75 transition-all duration-300 shrink-0 text-xs ${item.hoverClass}`}>
+                    {item.icon}
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <h4 className="text-xs font-semibold text-foreground/90 group-hover:text-primary transition-colors duration-300">
+                      {item.name}
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground/80 font-light leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </SectionWrapper>
   );
 }
 

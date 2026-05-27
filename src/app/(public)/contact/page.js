@@ -11,6 +11,8 @@ import {
   FaFacebook
 } from "react-icons/fa6";
 
+import SectionWrapper from "@/components/ui/SectionWrapper";
+
 function ContactPage() {
   const [copied, setCopied] = useState(false);
   const emailAddress = "dev.gaber@gmail.com";
@@ -26,8 +28,7 @@ function ContactPage() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-background py-16 antialiased">
-      <div className="mx-auto w-[90%] max-w-6xl px-4">
+    <SectionWrapper hasBorder={false} py="default">
         
         <div className="grid gap-16 lg:grid-cols-12 items-start">
           
@@ -166,8 +167,7 @@ function ContactPage() {
 
         </div>
 
-      </div>
-    </section>
+    </SectionWrapper>
   );
 }
 

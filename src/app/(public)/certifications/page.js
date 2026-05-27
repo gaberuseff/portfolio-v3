@@ -4,12 +4,13 @@ import {
   FaAward
 } from "react-icons/fa6";
 import { getCertifications } from "@/services/apiCertifications";
+import SectionWrapper from "@/components/ui/SectionWrapper";
 
 async function Page() {
   const certifications = await getCertifications();
 
   return (
-    <div className="mx-auto w-[90%] max-w-5xl py-16 font-inter antialiased">
+    <SectionWrapper isPage maxWidth="5xl" py="default">
       <div className="space-y-4 mb-16">
         <div className="text-[10px] font-mono tracking-widest text-muted-foreground/60 uppercase flex items-center gap-2">
           <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -95,7 +96,7 @@ async function Page() {
           </div>
         ))}
       </div>
-    </div>
+    </SectionWrapper>
   );
 }
 
