@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Clock } from "lucide-react";
+import { FaArrowLeft, FaClock } from "react-icons/fa6";
 
 const statusConfig = {
   "In Active Development": {
@@ -34,22 +34,29 @@ export default function ProjectHeader({ project }) {
   const status = statusConfig[project.statusLabel] || defaultStatus;
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-border/40 pb-6">
-      <div className="space-y-2">
-        <Link 
-          href="/projects" 
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors group cursor-pointer"
-        >
-          <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-1" />
-          <span>Back to Projects list</span>
-        </Link>
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-zinc-200/40 dark:border-zinc-800/40 pb-6">
+      <div className="space-y-4">
+        
+        <div className="flex items-center gap-3">
+          <Link 
+            href="/projects" 
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors group cursor-pointer"
+          >
+            <FaArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
+            <span>Back to Projects list</span>
+          </Link>
+        </div>
+
+        <div className="text-[10px] font-mono tracking-widest text-muted-foreground/60 uppercase flex items-center gap-2">
+          <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
+          Client Workspace   ·   Active Project
+        </div>
         
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
             {project.title}
           </h1>
           
-          {/* Status Badge */}
           <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border shrink-0 ${status.color}`}>
             <span className="relative flex h-2 w-2">
               {status.pulse && (
@@ -63,10 +70,10 @@ export default function ProjectHeader({ project }) {
 
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <Clock className="size-3.5 shrink-0 text-primary/60" />
+            <FaClock className="size-3.5 shrink-0 text-primary/60" />
             Updated {project.lastUpdated}
           </span>
-          <span className="h-3 w-px bg-border/40" />
+          <span className="h-3 w-px bg-zinc-200/40 dark:bg-zinc-800/40" />
           <span>ID: <code className="bg-muted px-1.5 py-0.5 rounded font-mono text-[10px]">{project.id}</code></span>
         </div>
       </div>

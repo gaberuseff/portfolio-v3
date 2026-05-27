@@ -19,6 +19,7 @@ import {
   Receipt,
   Settings
 } from "lucide-react";
+import Link from "next/link";
 
 const data = {
   navMain: [
@@ -31,12 +32,7 @@ const data = {
       title: "Billings",
       url: "/billings",
       icon: <Receipt />,
-    },
-    {
-      title: "login",
-      url: "/login",
-      icon: <ListIcon />,
-    },
+    }
   ],
   navSecondary: [
     {
@@ -45,8 +41,8 @@ const data = {
       icon: <Settings />,
     },
     {
-      title: "Get Contact",
-      url: "/contact",
+      title: "Help",
+      url: "/help",
       icon: <MessageCircleHeart />,
     },
   ],
@@ -64,10 +60,10 @@ export async function ClientSidebar({...props}) {
             <SidebarMenuButton
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <div>
+              <Link href="/" className="flex items-center gap-2">
                 <CommandIcon className="size-5!" />
                 <span className="text-base font-semibold">Gaber Usef.</span>
-              </div>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

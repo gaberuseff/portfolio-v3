@@ -79,3 +79,32 @@ model Invoice {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Work {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  features    String[]
+  image       String
+  live_link   String
+  source_link String
+  tech_stack  String[]
+  role        String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Certification {
+  id          String   @id
+  title       String
+  issuer      String
+  issueDate   String
+  description String
+  image       String
+  verifyUrl   String
+  skills      String[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

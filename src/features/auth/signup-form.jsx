@@ -30,6 +30,7 @@ import {Spinner} from "@/components/ui/spinner";
 import {arab_countries} from "@/lib/constants";
 import {cn} from "@/lib/utils";
 import useSignup from "./useSignup";
+import Link from "next/link";
 
 export function SignupForm({className, ...props}) {
   const {signup, isSigningUp} = useSignup();
@@ -213,7 +214,7 @@ export function SignupForm({className, ...props}) {
                   {isSigningUp && <Spinner />}
                 </Button>
                 <FieldDescription className="text-center">
-                  Already have an account? <a href="#">Sign in</a>
+                  Already have an account? <Link href="/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

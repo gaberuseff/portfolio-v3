@@ -57,18 +57,16 @@ export default async function Page({ params }) {
   const hasDeliverables = !!(project.figmaUrl || project.liveUrl);
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       <ProjectHeader project={project} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Main Details & Timeline */}
         <div className="lg:col-span-2 space-y-6">
           <ProjectOverview project={project} />
           <ProjectMilestones project={project} />
           {hasDeliverables && <ProjectDeliverables project={project} />}
         </div>
 
-        {/* Right Column - Sidebar Stats & Deliverables */}
         <div className="lg:col-span-1 space-y-6">
           <CompletionStatus project={project} />
           <FinancialSummary project={project} />

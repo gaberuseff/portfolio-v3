@@ -1,5 +1,5 @@
 import Providers from "@/Providers";
-import {Geist, Inter} from "next/font/google";
+import { Geist, Inter } from "next/font/google";
 import "./globals.css";
 
 const geist = Geist({
@@ -26,8 +26,9 @@ export default function RootLayout({children}) {
       suppressHydrationWarning
       className={`${geist.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
-
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

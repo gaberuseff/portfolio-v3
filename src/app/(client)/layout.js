@@ -14,7 +14,7 @@ export default function layout({children}) {
         <ClientSidebar variant="inset" />
         <SidebarInset>
           <SiteHeader />
-          <div className="flex flex-1 flex-col p-6">{children}</div>
+          <div className="flex flex-1 flex-col px-3 sm:px-6 py-6">{children}</div>
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
