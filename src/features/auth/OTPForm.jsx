@@ -23,7 +23,7 @@ import useVerify from "./useVerify";
 import {Spinner} from "@/components/ui/spinner";
 
 function OTPForm() {
-  const {isVerifying, verify, email} = useVerify();
+  const {isVerifying, verify, email, resendCode, isResending} = useVerify();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const isOtpComplete = otp.length === 6;
@@ -55,9 +55,14 @@ function OTPForm() {
               <FieldLabel htmlFor="otp-verification">
                 Verification code
               </FieldLabel>
-              <Button type="button" variant="outline" size="xs">
-                <LuRefreshCw />
-                Resend Code
+              <Button
+                type="button"
+                variant="outline"
+                size="xs"
+                onClick={() => resendCode()}
+                disabled={isResending || isVerifying}>
+                <LuRefreshCw className={isResending ? "animate-spin" : ""} />
+                {isResending ? "Resending..." : "Resend Code"}
               </Button>
             </div>
             <InputOTP

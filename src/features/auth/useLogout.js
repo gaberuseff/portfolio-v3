@@ -19,7 +19,7 @@ function useLogout() {
     },
     onSuccess: () => {
       queryClient.clear();
-      router.push("/login");
+      router.push("/");
       router.refresh();
       toast.success("Logged out successfully.");
     },

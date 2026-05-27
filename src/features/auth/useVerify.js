@@ -1,3 +1,4 @@
+import {resendOtpAction} from "@/actions/auth";
 import {verifyOtpAction} from "@/actions/verify";
 import {useMutation} from "@tanstack/react-query";
 import {useRouter, useSearchParams} from "next/navigation";
@@ -28,7 +29,25 @@ function useVerify() {
     },
   });
 
-  return {verify, isVerifying, email};
+  const {mutate: resendCode, isPending: isResending} = useMutation({
+    mutationFn: async () => {
+      const result = await resendOtpAction(email);
+      if (result.error) throw new Error(result.error);
+      return result;
+    },
+
+    onSuccess: (data) => {
+      toast.success(data.message || "A new verification code has been sent!");
+    },
+
+    onError: (error) => {
+      toast.error(
+        error.message || "Failed to resend verification code. Please try again.",
+      );
+    },
+  });
+
+  return {verify, isVerifying, email, resendCode, isResending};
 }
 
 export default useVerify;

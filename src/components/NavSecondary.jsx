@@ -6,6 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 
@@ -13,6 +14,13 @@ import { usePathname } from "next/navigation";
 
 export function NavSecondary({items, ...props}) {
   const pathname = usePathname();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   return (
     <SidebarGroup {...props}>
@@ -27,7 +35,7 @@ export function NavSecondary({items, ...props}) {
                   isActive={isActive}
                   className={isActive ? "bg-primary/10! text-primary! font-semibold border-l-3 border-primary rounded-l-none pl-2.5! transition-all duration-200" : "hover:text-primary/90 transition-all duration-200"}
                 >
-                  <Link href={item.url}>
+                  <Link href={item.url} onClick={handleLinkClick}>
                     {item.icon ? (
                       typeof item.icon === "function" ? (
                         <item.icon />

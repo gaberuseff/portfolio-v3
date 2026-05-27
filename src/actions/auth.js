@@ -107,7 +107,7 @@ export async function signupServerAction(userData) {
 async function sendVerificationEmail(name, email, otpCode) {
   try {
     const resp = await resend.emails.send({
-      from: "Gaber <onboarding@resend.dev>",
+      from: "Gaber Usef <auth@gaberuseff.info>",
       to: email,
       subject: "Verify your email",
       html: verificationEmail({name, otpCode}),
@@ -152,5 +152,47 @@ export async function logoutServerAction() {
   } catch (error) {
     console.error("Logout Error:", error);
     return {error: "Failed to sign out. Please try again."};
+  }
+}
+
+export async function resendOtpAction(email) {
+  if (!email) {
+    return {error: "Email is required"};
+  }
+
+  try {
+    const user = await db.user.findUnique({
+      where: {email},
+    });
+
+    if (!user) {
+      return {error: "User not found"};
+    }
+
+    if (user.status === "ACTIVE" || user.email_verified) {
+      return {error: "This account is already verified!"};
+    }
+
+    const otpCode = crypto.randomInt(100000, 900000).toString();
+    const expires = new Date(Date.now() + 10 * 60 * 1000);
+
+    // Delete existing verification tokens for this email
+    await db.verificationToken.deleteMany({where: {email}});
+
+    // Create a new verification token
+    await db.verificationToken.create({
+      data: {email, code: otpCode, expires},
+    });
+
+    // Send the email
+    const sendResult = await sendVerificationEmail(user.name, email, otpCode);
+    if (sendResult?.error) {
+      return {error: sendResult.error};
+    }
+
+    return {success: true, message: "A new verification code has been sent."};
+  } catch (error) {
+    console.error("Resend OTP Error:", error);
+    return {error: "Failed to resend verification code. Please try again."};
   }
 }

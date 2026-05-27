@@ -1,4 +1,14 @@
-export const works = [
+require('dotenv').config();
+const { Pool } = require('pg');
+const { PrismaPg } = require('@prisma/adapter-pg');
+const { PrismaClient } = require('@prisma/client');
+
+const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
+
+const worksData = [
   {
     id: 1,
     title: "Vista Valley - Reservation Platform",
@@ -10,7 +20,7 @@ export const works = [
       "Comprehensive guest dashboard showing active, past, and upcoming bookings",
       "Fully responsive and optimized layout deployed on Vercel with web analytics"
     ],
-    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/Untitled%20Project%20(6).jpg",
+    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/720shots_so.webp",
     live_link: "https://vista-valley.vercel.app/",
     source_link: "https://github.com/gaberuseff/vistaValley",
     tech_stack: [
@@ -34,7 +44,7 @@ export const works = [
       "Custom admin provisioning flows, statistical data charts, and dark mode theme",
       "Type-safe form verification built with React 19 and Styled Components"
     ],
-    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/Untitled%20Project%20(5).jpg",
+    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/631shots_so.webp",
     live_link: "https://vista-valley-admin.vercel.app/dashboard",
     source_link: "https://github.com/gaberuseff/vistaValley-Admin",
     tech_stack: [
@@ -58,7 +68,7 @@ export const works = [
       "Impeccable dark mode configuration styled with Tailwind CSS and Hero UI",
       "Persistent cloud database storage and file management via Supabase APIs"
     ],
-    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/Untitled%20Project%20(7).jpg",
+    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/923shots_so.webp",
     live_link: "https://gamr-admin.vercel.app/dashboard",
     source_link: "https://github.com/gaberuseff/Gamr-Admin",
     tech_stack: [
@@ -82,7 +92,7 @@ export const works = [
       "Serverless execution tasks using Supabase Edge Functions for backend routines",
       "Fast, responsive layout utilizing TanStack React Query and Hero UI"
     ],
-    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/Untitled%20Project%20(7).jpg",
+    image: "https://ulubznmnvepevknyjlee.supabase.co/storage/v1/object/public/works-images/607shots_so.webp",
     live_link: "https://clinicflow-admin.vercel.app/",
     source_link: "",
     tech_stack: [
@@ -96,3 +106,31 @@ export const works = [
     role: "Full-stack Developer",
   }
 ];
+
+async function main() {
+  console.log("Starting seed process...");
+
+  // Delete existing records in the Work table
+  console.log("Deleting existing works in the database...");
+  await prisma.work.deleteMany();
+
+  // Create new records
+  console.log("Seeding new works...");
+  for (const work of worksData) {
+    await prisma.work.create({
+      data: work,
+    });
+  }
+
+  console.log("Database seeded successfully!");
+}
+
+main()
+  .catch((e) => {
+    console.error("Error during seed:", e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+    await pool.end();
+  });
