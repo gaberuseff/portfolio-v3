@@ -17,12 +17,12 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
-  EllipsisVerticalIcon,
-  CircleUserRoundIcon,
-  CreditCardIcon,
-  BellIcon,
-  LogOutIcon,
-} from "lucide-react";
+  LuEllipsisVertical,
+  LuCircleUserRound,
+  LuCreditCard,
+  LuBell,
+  LuLogOut,
+} from "react-icons/lu";
 import useLogout from "@/features/auth/useLogout";
 import {Spinner} from "@/components/ui/spinner";
 
@@ -50,7 +50,7 @@ export function NavUser({user}) {
                   {user.email}
                 </span>
               </div>
-              <EllipsisVerticalIcon className="ml-auto size-4" />
+              <LuEllipsisVertical className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -75,21 +75,21 @@ export function NavUser({user}) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <CircleUserRoundIcon />
+                <LuCircleUserRound />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCardIcon />
+                <LuCreditCard />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <BellIcon />
+                <LuBell />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout} disabled={isLoggingOut}>
-              <LogOutIcon />
+              <LuLogOut />
               Log out
               {isLoggingOut && <Spinner className="ml-2" />}
             </DropdownMenuItem>

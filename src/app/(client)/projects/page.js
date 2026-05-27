@@ -1,5 +1,5 @@
 import { ProjectsList } from "@/features/client/projects";
-import { FolderClosed } from "lucide-react";
+import { LuFolderClosed } from "react-icons/lu";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getClientProjects } from "@/services/apiProjects";
@@ -32,7 +32,7 @@ export default async function Page() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <FolderClosed className="size-6 text-primary" />
+        <LuFolderClosed className="size-6 text-primary" />
         <h1 className="text-2xl font-bold">Your Projects</h1>
       </div>
       <ProjectsList projects={mappedProjects} />

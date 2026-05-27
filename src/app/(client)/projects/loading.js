@@ -1,13 +1,13 @@
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FolderClosed } from "lucide-react";
+import { LuFolderClosed } from "react-icons/lu";
 
 export default function Loading() {
   return (
     <div className="space-y-6 animate-pulse w-full">
       {/* Header Skeleton Block */}
       <div className="flex items-center gap-3 border-b border-border/40 pb-4">
-        <FolderClosed className="size-6 text-muted/40 shrink-0" />
+        <LuFolderClosed className="size-6 text-muted/40 shrink-0" />
         <div className="h-8 w-48 bg-muted/40 rounded" />
       </div>
 

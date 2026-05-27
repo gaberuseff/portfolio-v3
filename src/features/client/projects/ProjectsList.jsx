@@ -1,12 +1,12 @@
-import { FolderOpen } from "lucide-react";
+import { LuFolderOpen } from "react-icons/lu";
 import ProjectItem from "./ProjectItem";
 
 function ProjectsList({ projects }) {
   if (!projects || projects.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-center border border-dashed border-border rounded-2xl bg-muted/5 space-y-4 max-w-lg mx-auto my-6">
+      <div className="flex flex-col items-center justify-center p-12 text-center space-y-4 max-w-lg mx-auto my-6">
         <div className="p-4 rounded-full bg-muted text-muted-foreground shrink-0">
-          <FolderOpen className="size-8" />
+          <LuFolderOpen className="size-8" />
         </div>
         <div className="space-y-1.5">
           <h3 className="text-lg font-semibold">No Projects Found</h3>

@@ -14,15 +14,15 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import {
-  LayoutDashboardIcon,
-  ListIcon,
-  ChartBarIcon,
-  FolderIcon,
-  UsersIcon,
-  CameraIcon,
-  FileTextIcon,
-  CommandIcon,
-} from "lucide-react";
+  LuLayoutDashboard,
+  LuList,
+  LuChartBar,
+  LuFolder,
+  LuUsers,
+  LuCamera,
+  LuFileText,
+  LuCommand,
+} from "react-icons/lu";
 
 const data = {
   user: {
@@ -34,27 +34,27 @@ const data = {
     {
       title: "Dashboard",
       url: "#",
-      icon: <LayoutDashboardIcon />,
+      icon: <LuLayoutDashboard />,
     },
     {
       title: "Lifecycle",
       url: "#",
-      icon: <ListIcon />,
+      icon: <LuList />,
     },
     {
       title: "Analytics",
       url: "#",
-      icon: <ChartBarIcon />,
+      icon: <LuChartBar />,
     },
     {
       title: "Projects",
       url: "#",
-      icon: <FolderIcon />,
+      icon: <LuFolder />,
     },
     {
       title: "Team",
       url: "#",
-      icon: <UsersIcon />,
+      icon: <LuUsers />,
     },
   ],
 };
@@ -69,7 +69,7 @@ export function AdminSidebar({...props}) {
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href="#">
-                <CommandIcon className="size-5!" />
+                <LuCommand className="size-5!" />
                 <span className="text-base font-semibold">Acme Inc.</span>
               </a>
             </SidebarMenuButton>

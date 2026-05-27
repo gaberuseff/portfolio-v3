@@ -18,7 +18,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import {RefreshCwIcon} from "lucide-react";
+import { LuRefreshCw } from "react-icons/lu";
 import useVerify from "./useVerify";
 import {Spinner} from "@/components/ui/spinner";
 
@@ -56,7 +56,7 @@ function OTPForm() {
                 Verification code
               </FieldLabel>
               <Button type="button" variant="outline" size="xs">
-                <RefreshCwIcon />
+                <LuRefreshCw />
                 Resend Code
               </Button>
             </div>

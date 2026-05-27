@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Sun, Moon, Monitor, Settings } from "lucide-react";
+import { LuSun, LuMoon, LuMonitor, LuSettings } from "react-icons/lu";
 
 export default function SettingsPage() {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -44,7 +44,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-xl">
       <div className="flex items-center gap-3">
-        <Settings className="size-6" />
+        <LuSettings className="size-6" />
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Settings</h1>
       </div>
 
@@ -70,19 +70,19 @@ export default function SettingsPage() {
               <SelectContent position="popper" className="bg-popover border border-border/80">
                 <SelectItem value="light" className="cursor-pointer">
                   <div className="flex items-center gap-2">
-                    <Sun className="size-4 shrink-0 text-amber-500" />
+                    <LuSun className="size-4 shrink-0 text-amber-500" />
                     <span>Light Mode</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="dark" className="cursor-pointer">
                   <div className="flex items-center gap-2">
-                    <Moon className="size-4 shrink-0 text-indigo-400" />
+                    <LuMoon className="size-4 shrink-0 text-indigo-400" />
                     <span>Dark Mode</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="system" className="cursor-pointer">
                   <div className="flex items-center gap-2">
-                    <Monitor className="size-4 shrink-0 text-muted-foreground" />
+                    <LuMonitor className="size-4 shrink-0 text-muted-foreground" />
                     <span>System Preference</span>
                   </div>
                 </SelectItem>
@@ -91,7 +91,7 @@ export default function SettingsPage() {
           </div>
 
           <div className="p-4 rounded-xl border border-border/40 bg-muted/20 text-xs text-muted-foreground flex items-center gap-2">
-            <Monitor className="size-4 text-primary/70 shrink-0" />
+            <LuMonitor className="size-4 text-primary/70 shrink-0" />
             <span>
               Your portal is currently displaying in{" "}
               <strong className="text-foreground capitalize">{resolvedTheme} Mode</strong> based on your selections.

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { formatCurrency, formatDate } from "@/lib/helpers";
 import { getClientProject } from "@/services/apiProjects";
-import { ArrowLeft, Globe, Mail, ShieldCheck } from "lucide-react";
+import { LuArrowLeft, LuGlobe, LuMail, LuShieldCheck } from "react-icons/lu";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import PrintButton from "@/components/PrintButton";
@@ -80,7 +80,7 @@ export default async function InvoicePage({ params }) {
       <div className="max-w-2xl mx-auto mb-8 flex items-center justify-between print:hidden bg-white dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/50 rounded-2xl p-4 shadow-sm">
         <Button variant="ghost" size="sm" asChild className="gap-1.5 cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-xl transition-all">
           <Link href={`/projects/${p.id}`}>
-            <ArrowLeft className="size-4" />
+            <LuArrowLeft className="size-4" />
             <span className="font-semibold text-xs tracking-wide">Back to Dashboard</span>
           </Link>
         </Button>
@@ -100,7 +100,7 @@ export default async function InvoicePage({ params }) {
                 <h1 className="text-xl font-black tracking-wide text-zinc-900 dark:text-white uppercase leading-none">
                   Gaber Usef
                 </h1>
-                <ShieldCheck className="size-4 text-emerald-500 shrink-0" title="Verified Professional / مهندس معتمد" />
+                <LuShieldCheck className="size-4 text-emerald-500 shrink-0" title="Verified Professional / مهندس معتمد" />
               </div>
               <span className="text-[10px] text-primary font-bold uppercase tracking-widest leading-none mt-1.5 block">
                 Creative Technologist & Engineer
@@ -110,11 +110,11 @@ export default async function InvoicePage({ params }) {
             {/* Contact details */}
             <div className="space-y-1.5 text-xs text-zinc-400 font-medium pt-1">
               <div className="flex items-center gap-2">
-                <Mail className="size-3.5 text-zinc-400/80" />
+                <LuMail className="size-3.5 text-zinc-400/80" />
                 <span className="font-mono">gaber@gaberusef.dev</span>
               </div>
               <div className="flex items-center gap-2">
-                <Globe className="size-3.5 text-zinc-400/80" />
+                <LuGlobe className="size-3.5 text-zinc-400/80" />
                 <span className="font-mono">www.gaberusef.dev</span>
               </div>
             </div>
@@ -166,7 +166,7 @@ export default async function InvoicePage({ params }) {
           {/* Left: Subtle Professional Verification seal */}
           <div className="text-center sm:text-left space-y-1 font-mono text-[9px] text-zinc-400/80">
             <div className="flex items-center justify-center sm:justify-start gap-1 text-[8px] font-sans font-black text-emerald-500 uppercase tracking-widest leading-none">
-              <ShieldCheck className="size-3.5" />
+              <LuShieldCheck className="size-3.5" />
               <span>Officially Verified Document / وثيقة معتمدة</span>
             </div>
           </div>

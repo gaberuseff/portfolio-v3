@@ -12,13 +12,12 @@ import {
 } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
 import {
-  CommandIcon,
-  FolderClosed,
-  ListIcon,
-  MessageCircleHeart,
-  Receipt,
-  Settings
-} from "lucide-react";
+  LuFolderClosed,
+  LuMessageCircleHeart,
+  LuReceipt,
+  LuSettings
+} from "react-icons/lu";
+import Image from "next/image";
 import Link from "next/link";
 
 const data = {
@@ -26,24 +25,24 @@ const data = {
     {
       title: "Projects",
       url: "/projects",
-      icon: <FolderClosed />,
+      icon: <LuFolderClosed />,
     },
     {
       title: "Billings",
       url: "/billings",
-      icon: <Receipt />,
+      icon: <LuReceipt />,
     }
   ],
   navSecondary: [
     {
       title: "Settings",
       url: "/settings",
-      icon: <Settings />,
+      icon: <LuSettings />,
     },
     {
       title: "Help",
       url: "/help",
-      icon: <MessageCircleHeart />,
+      icon: <LuMessageCircleHeart />,
     },
   ],
 };
@@ -61,7 +60,7 @@ export async function ClientSidebar({...props}) {
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5!">
               <Link href="/" className="flex items-center gap-2">
-                <CommandIcon className="size-5!" />
+                <Image src='/logo.png' alt="logo" width={30} height={30} />
                 <span className="text-base font-semibold">Gaber Usef.</span>
               </Link>
             </SidebarMenuButton>

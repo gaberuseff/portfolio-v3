@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Grid2x2PlusIcon } from "lucide-react";
+import { LuGrid2X2Plus } from "react-icons/lu";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { MenuToggle } from '@/components/menu-toggle';

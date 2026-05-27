@@ -1,26 +1,25 @@
 "use client";
 
 import { 
-  Mail, 
-  Phone, 
-  Send, 
-  Sparkles,
-  ExternalLink,
-  Globe
-} from "lucide-react";
+  LuMail, 
+  LuPhone, 
+  LuSend, 
+  LuExternalLink,
+  LuGlobe
+} from "react-icons/lu";
 
 const channels = [
   {
     name: "Direct Email",
     value: "dev.gaber@gmail.com",
-    icon: <Mail className="size-5" />,
+    icon: <LuMail className="size-5" />,
     iconBg: "bg-blue-500/10 text-blue-500 border-blue-500/10",
     url: "mailto:dev.gaber@gmail.com"
   },
   {
     name: "WhatsApp Chat",
     value: "+20 155 002 23440",
-    icon: <Phone className="size-5" />,
+    icon: <LuPhone className="size-5" />,
     iconBg: "bg-emerald-500/10 text-emerald-500 border-emerald-500/10",
     url: "https://wa.me/201500223440"
   },
@@ -74,14 +73,14 @@ const channels = [
   {
     name: "Telegram Chat",
     value: "t.me/gaberuseff",
-    icon: <Send className="size-5" />,
+    icon: <LuSend className="size-5" />,
     iconBg: "bg-cyan-500/10 text-cyan-500 border-cyan-500/10",
     url: "https://t.me/gaberuseff"
   },
   {
     name: "Personal Portfolio",
     value: "gaberuseff.com",
-    icon: <Globe className="size-5" />,
+    icon: <LuGlobe className="size-5" />,
     iconBg: "bg-purple-500/10 text-purple-500 border-purple-500/10",
     url: "https://gaberuseff.com"
   }
@@ -126,7 +125,7 @@ export default function ContactPage() {
               className="p-2 rounded-lg bg-muted/20 text-muted-foreground group-hover:text-primary group-hover:bg-primary/10 transition-all duration-300 cursor-pointer ml-3 shrink-0"
               title={ch.name}
             >
-              <ExternalLink className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <LuExternalLink className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
         ))}
