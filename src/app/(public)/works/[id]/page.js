@@ -13,8 +13,31 @@ export async function generateMetadata({ params }) {
         }
     }
     return {
-        title: `${work.title} | Gaber Usef Portfolio`,
+        title: `${work.title} | Case Study`,
         description: work.description,
+        alternates: {
+            canonical: `/works/${id}`,
+        },
+        openGraph: {
+            title: `${work.title} | Gaber Usef Portfolio`,
+            description: work.description,
+            url: `https://gaberuseff.info/works/${id}`,
+            type: "article",
+            images: [
+                {
+                    url: work.image,
+                    width: 1200,
+                    height: 630,
+                    alt: `${work.title} Project Preview`,
+                }
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${work.title} | Gaber Usef Portfolio`,
+            description: work.description,
+            images: [work.image],
+        }
     }
 }
 
@@ -33,8 +56,40 @@ async function page({ params }) {
     const prevWork = works[(workIndex - 1 + works.length) % works.length]
     const nextWork = works[(workIndex + 1) % works.length]
 
+    const projectJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": work.title,
+        "description": work.description,
+        "image": work.image,
+        "author": {
+            "@type": "Person",
+            "name": "Gaber Usef",
+            "url": "https://gaberuseff.info"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Gaber Usef",
+            "url": "https://gaberuseff.info"
+        },
+        "url": `https://gaberuseff.info/works/${work.id}`,
+        "genre": "Software Application / Web Development",
+        "keywords": work.tech_stack.join(", "),
+        "creator": {
+            "@type": "Person",
+            "name": "Gaber Usef",
+            "url": "https://gaberuseff.info"
+        }
+    }
+
     return (
         <div className="min-h-screen py-12 px-6 sm:px-12 lg:px-16 max-w-4xl mx-auto flex flex-col justify-between font-inter antialiased">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ 
+                    __html: JSON.stringify(projectJsonLd).replace(/</g, '\\u003c') 
+                }}
+            />
             <div>
                 <div className="mb-12">
                     <Link 

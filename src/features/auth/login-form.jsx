@@ -29,7 +29,7 @@ export function LoginForm({className, ...props}) {
     handleSubmit,
     formState: {errors},
   } = useForm({
-    defaultValues: {email: "dev.gaber@gmail.com", password: "12345678"},
+    defaultValues: {email: "", password: ""},
   });
 
   function onSubmit(values) {

@@ -44,13 +44,13 @@ function Hero() {
         </div>
 
         <div className="lg:col-span-5 w-full flex justify-center items-center">
-          <div className="relative aspect-[3/4] w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[400px] rounded-[2rem] overflow-hidden bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200/30 dark:border-zinc-800/30 shadow-sm hover:shadow-md transition-shadow duration-500">
+          <div className="relative aspect-[3/4] w-full max-w-[340px] sm:max-w-[4000px] lg:max-w-[430px] rounded-[2rem] overflow-hidden bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200/30 dark:border-zinc-800/30 shadow-sm hover:shadow-md transition-shadow duration-500">
             <Image
-              src="/me.webp"
+              src="/mee.webp"
               alt="Gaber Usef"
               fill
               priority
-              quality={90}
+              quality={100}
               className="object-cover w-full h-full filter brightness-[0.98] dark:brightness-[0.95] transition-transform duration-700 ease-out hover:scale-[1.01]"
               sizes="(max-width: 768px) 100vw, 400px"
             />

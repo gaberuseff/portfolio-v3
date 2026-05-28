@@ -6,6 +6,23 @@ import {
 import { getCertifications } from "@/services/apiCertifications";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
+export const metadata = {
+  title: "Professional Certifications",
+  description: "Explore the verified professional credentials, frontend specs, cloud architecture, and industry certifications held by Gaber Usef.",
+  alternates: {
+    canonical: "/certifications",
+  },
+  openGraph: {
+    title: "Professional Certifications | Gaber Usef",
+    description: "Explore the verified professional credentials, frontend specs, cloud architecture, and industry certifications held by Gaber Usef.",
+    url: "https://gaberuseff.info/certifications",
+  },
+  twitter: {
+    title: "Professional Certifications | Gaber Usef",
+    description: "Explore the verified professional credentials, frontend specs, cloud architecture, and industry certifications held by Gaber Usef.",
+  }
+};
+
 async function Page() {
   const certifications = await getCertifications();
 
